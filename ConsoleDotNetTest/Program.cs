@@ -6,9 +6,9 @@ namespace ConsoleDotNetTest
     {
         static void Main(string[] args)
         {
-            var testIMG = @"./4.jpg";
+            var testIMG = @"./4.tif";
             Recognize recognize = new Recognize();
-            recognize.MRZ(testIMG);
+            recognize.Rec(testIMG);
         }
     }
 }
