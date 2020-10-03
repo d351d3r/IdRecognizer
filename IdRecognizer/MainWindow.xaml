@@ -166,7 +166,7 @@
                                     <Binding Path="Person.SecondName" NotifyOnValidationError="True"
                                              Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <ExceptionValidationRule/>
+                                            <DataErrorValidationRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -185,7 +185,7 @@
                                     <Binding Path="Person.Name" NotifyOnValidationError="True"
                                              Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <ExceptionValidationRule/>
+                                            <DataErrorValidationRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>

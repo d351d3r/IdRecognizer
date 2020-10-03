@@ -19,12 +19,14 @@ namespace RecognizerDLL.Utils
 		/// <summary>
 		/// Имя
 		/// </summary>
-		public string Name 
-		{ get => name; 
-			set {
+		public string Name
+		{
+			get => name;
+			set
+			{
 				name = value;
 				NotifyPropertyChanged("Name");
-			} 
+			}
 		}
 
 		/// <summary>
@@ -155,7 +157,7 @@ namespace RecognizerDLL.Utils
 		}
 	}
 
-	public partial class PersonId
+	public partial class PersonId : IDataErrorInfo
 	{
 		private const string InvalidNameMessage = "Неверное имя! Имя не может содержать цифр!";
 		private const string InvalidSeriesMessage = "Неверная серия паспорта! Это должно быть 4х значеное число!";

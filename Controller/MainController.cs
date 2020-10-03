@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace Controller
 {
-	public class MainController
+	public class MainController: ControllerBase
 	{
 		private const string InvalidFormatErrorMessage = "Возникла ошибка во время выбора файла";
 		private const string SaveErrorMessage = "Нечего сохранять!";
@@ -27,7 +27,18 @@ namespace Controller
 		public SolidColorBrush InvalidBrush = new SolidColorBrush(Colors.Red);
 		public SolidColorBrush ValidBrush = new SolidColorBrush(Colors.Transparent);
 
-		public PersonId Person { get; private set; }
+		private PersonId person;
+
+		public PersonId Person
+		{
+			get => person;
+			private set
+			{
+				person = value;
+
+				NotifyPropertyChanged("Person");
+			}
+		}
 
 		public MainController(Notifier notifier)
 		{
@@ -58,7 +69,7 @@ namespace Controller
 
 		public void OutError(TextBox currentTB, ValidationErrorEventArgs e)
 		{
-			if(e.Action == ValidationErrorEventAction.Added)
+			if (e.Action == ValidationErrorEventAction.Added)
 			{
 				currentTB.BorderBrush = ValidBrush;
 			}

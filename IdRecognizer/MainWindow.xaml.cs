@@ -17,7 +17,7 @@ namespace IdRecognizer
 			InitializeComponent();
 
 			mainController = new MainController((message) => MessageBox.Show(message));
-			DataContext = mainController.Person;
+			DataContext = mainController;
 		}
 
 		private void OpenFileButton_Click(object sender, RoutedEventArgs e)
