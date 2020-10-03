@@ -45,7 +45,7 @@
                         <RotateTransform Angle="180"/>
                     </Setter.Value>
                 </Setter>
-
+                <Setter Property="BorderThickness" Value="2.5"/>
                 <Setter Property="BorderBrush" Value="{StaticResource ActiveBorderBrush}"/>
             </Trigger>
 
@@ -58,14 +58,16 @@
     </ControlTemplate>
 
     <!--Exactly ComboBox style-->
-    <Style TargetType="ComboBox" x:Key="ComboBox">
+    <Style TargetType="ComboBox" x:Key="RoundedComboBox">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="4"/>
-        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="MinWidth" Value="50"/>
         <Setter Property="MinHeight" Value="25"/>
-        <Setter Property="Foreground" Value="{StaticResource MainBackgroundBrush}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource MainFontBrush}"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -74,11 +76,14 @@
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
                         <ToggleButton x:Name="toggleButton"
-                                        Template="{StaticResource ToggleButton}"
-                                        Grid.Column="2"
-                                        Focusable="False"
-                                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ClickMode="Press"/>
+                                      Template="{StaticResource ToggleButton}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Grid.Column="2"
+                                      Focusable="False"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press"/>
 
                         <ContentPresenter x:Name="contentSite" IsHitTestVisible="False"
                                         Content="{TemplateBinding SelectionBoxItem}"
@@ -89,10 +94,11 @@
                                         HorizontalAlignment="Left"/>
 
                         <TextBox x:Name="textBlock" Grid.Column="0"
-                                        Template="{StaticResource ComboBoxTextBox}"
-                                        HorizontalAlignment="Left" VerticalAlignment="Center"
-                                        Margin="4"
-                                        IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Margin="4"
+                                 FontSize="18"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"/>
 
                         <Popup x:Name="popup"
                                         Focusable="True"
@@ -105,8 +111,8 @@
                                         SnapsToDevicePixels="True"
                                         MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="popupBorder"    
-                                        Background="#FF4F4F4F"      
-                                        BorderBrush="Black"
+                                        Background="{StaticResource SecondBackgroundBrush}"      
+                                        BorderBrush="{StaticResource ActiveBorderBrush}"
                                         BorderThickness="1"/>           <!--Color to change-->
                                 <ScrollViewer Margin="4,2,2,2">
                                     <!--Very important!-->
@@ -131,7 +137,7 @@
     <!--ComboBoxItem-->
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="Foreground" Value="#888888"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -145,13 +151,12 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsHighlighted" Value="true">
-                            <Setter Property="Background" Value="#444444"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="{StaticResource ComboBoxFontBrush}"/>
                         </Trigger>
 
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property ="Background" Value="#777778"/>
-                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter TargetName="Border" Property ="Background" Value="{StaticResource ActiveBorderBrush}"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
 
                     </ControlTemplate.Triggers>

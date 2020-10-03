@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Id recognizer"
         Icon="pack://application:,,,/Resources/Icons/id_icon.png"
-        Height="450" Width="850">
+        MinHeight="600" MinWidth="900">
 
     <Window.Resources>
         <Style x:Key="MenuPanel" TargetType="StackPanel">
@@ -15,15 +15,15 @@
             <Setter Property="Margin" Value="4,0,6,0"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid Background="{StaticResource MainBackgroundBrush}"
           Focusable="True"
           x:Name="MainFocusGrid"
           MouseDown="MainFocusGrid_MouseDown">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -89,7 +89,7 @@
                                Style="{StaticResource UnderButtonText}"/>
 
                 </StackPanel>
-                
+
                 <Image Grid.Column="3" 
                        RenderOptions.BitmapScalingMode="HighQuality"
                        HorizontalAlignment="Right"  VerticalAlignment="Center"
@@ -99,7 +99,7 @@
                        Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"/>
 
             </Grid>
-            
+
         </Border>
 
         <Image x:Name="IdScanImage"
@@ -114,7 +114,7 @@
                 BorderBrush="{StaticResource DividingBrush}">
 
             <Grid Margin="6,0,0,0">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
@@ -150,7 +150,6 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="Фамилия:"
@@ -187,19 +186,38 @@
                             <Grid Grid.Row="3"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="2">
-                                
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Пол:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Column="0"/>
+
+                                <ComboBox Grid.Column="1"
+                                          Width="50"
+                                          Style="{StaticResource RoundedComboBox}">
+                                    <ComboBoxItem IsSelected="True">M</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="Дата рождения:"
+                                           Style="{StaticResource SideText}"
+                                           Grid.Column="2"/>
+
+                                <ComboBox Grid.Column="3"
+                                          HorizontalAlignment="Stretch"
+                                          Style="{StaticResource RoundedComboBox}">
+                                    <ComboBoxItem IsSelected="True">01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
+                                </ComboBox>
+
                             </Grid>
-
-                            <TextBlock Style="{StaticResource SideText}"
-                                       Grid.Row="4"
-                                       Grid.Column="0">
-                                Место <LineBreak/>рождения:
-                            </TextBlock>
-
-                            <TextBox Text="123"
-                                     Style="{StaticResource InputTextBox}"
-                                     Grid.Row="4"
-                                     Grid.Column="1"/>
 
                         </Grid>
                     </Border>
@@ -208,19 +226,73 @@
                     <Border Style="{StaticResource UnderlinedBorder}"
                             Grid.Row="1">
                         <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
                             <TextBlock Text="Серия:"
                                        Style="{StaticResource SideText}"
                                        Grid.Row="1"
                                        Grid.Column="0"/>
+
+                            <TextBox Text="1238"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Column="1"/>
+
+                            <TextBlock Text="Номер:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Column="2"/>
+
+                            <TextBox Text="123657"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Column="3"/>
+
                         </Grid>
                     </Border>
-                    
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Style="{StaticResource SideText}"
+                                   Grid.Column="0"
+                                   Grid.Row="0">
+                            Дата выдачи:
+                        </TextBlock>
+
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Style="{StaticResource InputTextBox}"/>
+
+                        <TextBlock Style="{StaticResource SideText}"
+                                   Grid.Column="0"
+                                   Grid.Row="1">
+                            Номер<LineBreak/>подразделения:
+                        </TextBlock>
+
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="1"
+                                 Style="{StaticResource InputTextBox}"/>
+
+                    </Grid>
+
                 </Grid>
-                
+
             </Grid>
-            
+
         </Border>
-        
+
     </Grid>
-    
+
 </Window>
