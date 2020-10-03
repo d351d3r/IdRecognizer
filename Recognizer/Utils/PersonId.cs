@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 
 namespace RecognizerDLL.Utils
@@ -190,9 +191,14 @@ namespace RecognizerDLL.Utils
 							error = InvalidSeriesMessage;
 						break;
 
+					case "Code":
 					case "Number":
 						if (DataValidation.IsNumberValid(Number) == false)
 							error = InvalidNumberMessage;
+						break;
+
+					case "Expiration":
+					case "Birth":
 						break;
 
 					default:
@@ -205,6 +211,7 @@ namespace RecognizerDLL.Utils
 			}
 		}
 
+		[JsonProperty("Error", NullValueHandling = NullValueHandling.Ignore)]
 		public string Error { get; private set; }
 
 	}
