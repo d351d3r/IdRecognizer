@@ -81,7 +81,8 @@
 
                     <Button Style="{StaticResource MyRoundButton}"
                             x:Name="SaveButton"
-                            Click="SaveButton_Click">
+                            Click="SaveButton_Click"
+                            IsEnabled="{Binding IsDataValid, Mode=OneWay}">
                         <Image Source="pack://application:,,,/Resources/Icons/save_icon.png"/>
                     </Button>
 

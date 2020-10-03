@@ -2,11 +2,9 @@
 using Newtonsoft.Json;
 using RecognizerDLL.Utils;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Controller
@@ -23,12 +21,18 @@ namespace Controller
 		private readonly Notifier notifier;
 		private readonly Recognizer recognizer;
 
-		public void ChooseScan()
-		{
-			throw new NotImplementedException();
-		}
+		public bool IsDataValid => isNameValid && isSecondNameValid && isMiddleNameValid
+											&& isSeriesNameValid && isExpirationValid
+											&& isCodeValid && isNumberValid && isBirthValid;
+		private bool isNameValid = false;
+		private bool isSecondNameValid = false;
+		private bool isMiddleNameValid = false;
+		private bool isSeriesNameValid = false;
+		private bool isCodeValid = false;
+		private bool isNumberValid = false;
+		private bool isExpirationValid = false;
+		private bool isBirthValid = false;
 
-		public bool IsValid = false;
 
 		private PersonId person;
 
@@ -51,11 +55,60 @@ namespace Controller
 			recognizer.RecognitionFinished += Recognizer_RecognitionFinished;
 		}
 
+		public void ChooseScan()
+		{
+			throw new NotImplementedException();
+		}
+
 		private void Recognizer_RecognitionFinished(string jsonPath)
 		{
 			var jsonStr = File.ReadAllText(jsonPath);
 
 			Person = JsonConvert.DeserializeObject<PersonId>(jsonStr);
+			Person.ValidationChaged += Person_ValidationChaged; ;
+		}
+
+		private void Person_ValidationChaged(string propName, bool isValidFlag)
+		{
+			switch (propName)
+			{
+				case PersonId.NameProp:
+					isNameValid = isValidFlag;
+					break;
+
+				case PersonId.SecondNameProp:
+					isSecondNameValid = isValidFlag;
+					break;
+
+				case PersonId.MiddleNameProp:
+					isMiddleNameValid = isValidFlag;
+					break;
+
+				case PersonId.SeriesProp:
+					isSeriesNameValid = isValidFlag;
+					break;
+
+				case PersonId.CodeProp:
+					isCodeValid = isValidFlag;
+					break;
+
+				case PersonId.NumberProp:
+					isNumberValid = isValidFlag;
+					break;
+
+				case PersonId.ExpirationProp:
+					isExpirationValid = isValidFlag;
+					break;
+
+				case PersonId.BirthProp:
+					isBirthValid = isValidFlag;
+					break;
+
+				default:
+					throw new ArgumentException($"Property name was {propName}");
+			}
+
+			NotifyPropertyChanged("IsDataValid");
 		}
 
 		public BitmapImage ChooseImage()

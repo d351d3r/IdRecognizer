@@ -13,4 +13,6 @@
     <SolidColorBrush x:Key="SecondFontBrush" Color="#FF323289"/>
     <SolidColorBrush x:Key="ComboBoxFontBrush" Color="LightGray"/>
 
+    <SolidColorBrush x:Key="InactiveButtonBrush" Color="LightGray"/>
+
 </ResourceDictionary>

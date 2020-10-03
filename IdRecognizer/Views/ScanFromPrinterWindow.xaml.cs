@@ -20,8 +20,6 @@ namespace IdRecognizer.Views
 		public ScanFromPrinterWindow()
 		{
 			InitializeComponent();
-			
-			
 		}
 	}
 }

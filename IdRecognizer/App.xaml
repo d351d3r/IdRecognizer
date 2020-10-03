@@ -42,13 +42,13 @@
 
             <ControlTemplate x:Key="ValidationFailed">
                 <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Red" FontSize="50" FontWeight="Bold">!</TextBlock>
                     <Border BorderBrush="Red" BorderThickness="2"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             CornerRadius="10">
-                        <AdornedElementPlaceholder />
+                        <AdornedElementPlaceholder/>
                     </Border>
-                    <TextBlock Foreground="Red" FontSize="50" FontWeight="Bold">!</TextBlock>
                 </StackPanel>
             </ControlTemplate>
 

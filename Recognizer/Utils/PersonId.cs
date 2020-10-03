@@ -161,8 +161,21 @@ namespace RecognizerDLL.Utils
 	public partial class PersonId : IDataErrorInfo
 	{
 		private const string InvalidNameMessage = "Неверное имя! Имя не может содержать цифр!";
-		private const string InvalidSeriesMessage = "Неверная серия паспорта! Это должно быть 4х значеное число!";
-		private const string InvalidNumberMessage = "Неверный номер паспорта! Это должно быть 6ти значное число!";
+		private const string InvalidSeriesMessage = "Неверная серия паспорта! Это должно быть 4-х значеное число!";
+		private const string InvalidNumberMessage = "Неверный номер паспорта! Это должно быть 6-ти значное число!";
+
+		public const string NameProp = "Name";
+		public const string SecondNameProp = "SecondName";
+		public const string MiddleNameProp = "MiddleName";
+		public const string SeriesProp = "Series";
+		public const string CodeProp = "Code";
+		public const string NumberProp = "Number";
+		public const string ExpirationProp = "Expiration";
+		public const string BirthProp = "Birth";
+
+		public delegate void ValidationChangedDelegate(string propName, bool isValidFlag);
+
+		public event ValidationChangedDelegate ValidationChaged;
 
 		public string this[string columnName]
 		{
@@ -171,34 +184,84 @@ namespace RecognizerDLL.Utils
 				string error = string.Empty;
 				switch (columnName)
 				{
-					case "Name":
-						if (DataValidation.IsNameValid(Name) == false)
-							error = InvalidNameMessage;
+					case NameProp:
+						{
+							var isValid = DataValidation.IsNameValid(Name);
+							if (isValid == false)
+								error = InvalidNameMessage;
+
+							ValidationChaged?.Invoke(NameProp, isValid);
+						}
 						break;
 
-					case "SecondName":
-						if (DataValidation.IsNameValid(SecondName) == false)
-							error = InvalidNameMessage;
+					case SecondNameProp:
+						{
+							var isValid = DataValidation.IsNameValid(SecondName);
+							if (isValid == false)
+								error = InvalidNameMessage;
+
+							ValidationChaged?.Invoke(SecondNameProp, isValid);
+						}
 						break;
 
-					case "MiddleName":
-						if (DataValidation.IsNameValid(MiddleName) == false)
-							error = InvalidNameMessage;
+					case MiddleNameProp:
+						{
+							var isValid = DataValidation.IsNameValid(MiddleName);
+							if (isValid == false)
+								error = InvalidNameMessage;
+
+							ValidationChaged?.Invoke(MiddleNameProp, isValid);
+						}
 						break;
 
-					case "Series":
-						if (DataValidation.IsSeriesValid(Series) == false)
-							error = InvalidSeriesMessage;
+					case SeriesProp:
+						{
+							var isValid = DataValidation.IsSeriesValid(Series);
+							if (isValid == false)
+								error = InvalidSeriesMessage;
+
+							ValidationChaged?.Invoke(SeriesProp, isValid);
+						}
 						break;
 
-					case "Code":
-					case "Number":
-						if (DataValidation.IsNumberValid(Number) == false)
-							error = InvalidNumberMessage;
+					case CodeProp:
+						{
+							var isValid = DataValidation.IsNumberValid(Code);
+							if (isValid == false)
+								error = InvalidNumberMessage;
+
+							ValidationChaged?.Invoke(CodeProp, isValid);
+						}
 						break;
 
-					case "Expiration":
-					case "Birth":
+					case NumberProp:
+						{
+							var isValid = DataValidation.IsNumberValid(Number);
+							if (isValid == false)
+								error = InvalidNumberMessage;
+
+							ValidationChaged?.Invoke(NumberProp, isValid);
+						}
+						break;
+
+					case ExpirationProp:
+						{
+							//var isValid = DataValidation.IsNumberValid(Number);
+							//if (isValid == false)
+							//	error = InvalidNumberMessage;
+
+							ValidationChaged?.Invoke(ExpirationProp, true);
+						}
+						break;
+
+					case BirthProp:
+						{
+							//var isValid = DataValidation.IsNumberValid(Number);
+							//if (isValid == false)
+							//	error = InvalidNumberMessage;
+
+							ValidationChaged?.Invoke(BirthProp, true);
+						}
 						break;
 
 					default:
