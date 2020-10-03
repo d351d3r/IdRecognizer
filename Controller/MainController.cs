@@ -15,13 +15,19 @@ namespace Controller
 	{
 		private const string InvalidFormatErrorMessage = "Возникла ошибка во время выбора файла";
 		private const string SaveErrorMessage = "Нечего сохранять!";
-		private const string RussionPostURL = @"https://www.pochta.ru/";
+		private const string RussionPostURL = @"https://www.pochta.ru";
 		private const string JsonExtension = ".json";
 
 		public delegate void Notifier(string message);
 
 		private readonly Notifier notifier;
 		private readonly Recognizer recognizer;
+
+		public void ChooseScan()
+		{
+			throw new NotImplementedException();
+		}
+
 		public bool IsValid = false;
 
 		public SolidColorBrush InvalidBrush = new SolidColorBrush(Colors.Red);
@@ -132,7 +138,9 @@ namespace Controller
 
 		public void Navigate()
 		{
-			Task.Run(() => Process.Start(RussionPostURL));
+			//var b = new WebBrowser();
+			//b.Navigate(RussionPostURL);
+			////Task.Run(() => );
 		}
 	}
 }

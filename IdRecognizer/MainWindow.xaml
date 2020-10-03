@@ -110,7 +110,7 @@
         <!--Panel with data to check-->
         <Border Grid.Row="1"
                 Grid.Column="1"
-                 BorderThickness="2,0,0,0"
+                BorderThickness="2,0,0,0"
                 Margin="0,6,6,6"
                 BorderBrush="{StaticResource DividingBrush}">
 

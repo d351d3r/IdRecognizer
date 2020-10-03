@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
-    <Folder Include="ValidationRules\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.csproj" />
   </ItemGroup>
 

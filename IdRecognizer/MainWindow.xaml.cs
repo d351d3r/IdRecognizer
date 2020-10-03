@@ -27,7 +27,7 @@ namespace IdRecognizer
 
 		private void ScanButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			mainController.ChooseScan();
 		}
 
 		private void SaveButton_Click(object sender, RoutedEventArgs e)

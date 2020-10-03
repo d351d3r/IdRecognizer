@@ -211,7 +211,7 @@ namespace RecognizerDLL.Utils
 			}
 		}
 
-		[JsonProperty("Error", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonIgnore]
 		public string Error { get; private set; }
 
 	}
