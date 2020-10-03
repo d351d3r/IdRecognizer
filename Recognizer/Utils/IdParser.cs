@@ -39,16 +39,26 @@ namespace RecognizerDLL.Utils
 				Number = new string(number),
 				Birth = ToDateFormat(birth),
 				Gender = new string(gender),
-				Code = new string(code), 
+				Code = new string(code),
 				Expiration = ToDateFormat(expiration),
 			};
 		}
 
 		private static string ToDateFormat(char[] charArr)
 		{
+			//YYMMDD
+			//YYYY.MM.DD
 			var res = string.Empty;
 			for (int i = 0; i < charArr.Length; i++)
 			{
+				if (i == 0)
+				{
+					if (charArr[i] >= '0' && charArr[i] <= '5')
+						res += "20";
+					else
+						res += "19";
+				}
+
 				if (i == 2 || i == 4)
 					res += ".";
 
