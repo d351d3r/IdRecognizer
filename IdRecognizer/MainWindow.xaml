@@ -158,20 +158,38 @@
                                        Grid.Row="0"
                                        Grid.Column="0"/>
 
-                            <TextBox Text="123"
-                                     Style="{StaticResource InputTextBox}"
+                            <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Row="0"
-                                     Grid.Column="1"/>
+                                     Grid.Column="1"
+                                     Validation.Error="TextBox_Error">
+                                <TextBox.Text>
+                                    <Binding Path="Person.SecondName" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <ExceptionValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
 
                             <TextBlock Text="Имя:"
                                        Style="{StaticResource SideText}"
                                        Grid.Row="1"
                                        Grid.Column="0"/>
 
-                            <TextBox Text="123"
-                                     Style="{StaticResource InputTextBox}"
+                            <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Row="1"
-                                     Grid.Column="1"/>
+                                     Grid.Column="1"
+                                     Validation.Error="TextBox_Error">
+                                <TextBox.Text>
+                                    <Binding Path="Person.Name" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <ExceptionValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
 
 
                             <TextBlock Text="Отчество:"

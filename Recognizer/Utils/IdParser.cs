@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Linq;
 
 namespace RecognizerDLL.Utils
 {
@@ -41,11 +37,25 @@ namespace RecognizerDLL.Utils
 				MiddleName = middleName.ToRus(),
 				Series = new string(series),
 				Number = new string(number),
-				Birth = new string(birth),
+				Birth = ToDateFormat(birth),
 				Gender = new string(gender),
 				Code = new string(code), 
-				Expiration = new string(expiration),
+				Expiration = ToDateFormat(expiration),
 			};
+		}
+
+		private static string ToDateFormat(char[] charArr)
+		{
+			var res = string.Empty;
+			for (int i = 0; i < charArr.Length; i++)
+			{
+				if (i == 2 || i == 4)
+					res += ".";
+
+				res += charArr[i];
+			}
+
+			return res;
 		}
 	}
 }

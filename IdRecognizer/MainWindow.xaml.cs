@@ -1,5 +1,6 @@
 ﻿using Controller;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace IdRecognizer
@@ -9,13 +10,14 @@ namespace IdRecognizer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private MainController mainController;
+		private readonly MainController mainController;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			mainController = new MainController((message) => MessageBox.Show(message));
+			DataContext = mainController.Person;
 		}
 
 		private void OpenFileButton_Click(object sender, RoutedEventArgs e)
@@ -41,6 +43,14 @@ namespace IdRecognizer
 		private void MainFocusGrid_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			MainFocusGrid.Focus();
+		}
+
+		private void TextBox_Error(object sender, ValidationErrorEventArgs e)
+		{
+			if(sender is TextBox currentTB)
+			{
+				mainController.OutError(currentTB, e);
+			}
 		}
 	}
 }
