@@ -26,6 +26,7 @@
                 <Setter Property="Foreground" Value="{StaticResource SecondFontBrush}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="4,2,8,2"/>
             </Style>
             
             <Style TargetType="Button" x:Key="MyRoundButton" BasedOn="{StaticResource ABitRoundButton}">

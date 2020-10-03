@@ -58,12 +58,12 @@
     </ControlTemplate>
 
     <!--Exactly ComboBox style-->
-    <Style TargetType="ComboBox" x:Key="ComboBox">
+    <Style TargetType="ComboBox" x:Key="RoundedComboBox">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="4"/>
-        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="MinWidth" Value="50"/>
         <Setter Property="MinHeight" Value="25"/>
         <Setter Property="Foreground" Value="{StaticResource MainBackgroundBrush}"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
