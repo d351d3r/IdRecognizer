@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecognizerDLL.Utils;
+using System;
 namespace ConsoleDotNetTest
 {
     class Program
@@ -6,6 +7,11 @@ namespace ConsoleDotNetTest
         
         static void Main(string[] args)
         {
+            //var testIMG = @"D:\WorkSpace\kakaton\CP\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\fedos.jpg";
+            //Recognize recognize = new Recognize();
+            //recognize.Rec(testIMG);
+
+            IdParser.Parse("");
             var testIMG = @"D:\WorkSpace\kakaton\CP\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\jopa.png";
             Recognize recognize = new Recognize();
             recognize.Rec2(testIMG);
