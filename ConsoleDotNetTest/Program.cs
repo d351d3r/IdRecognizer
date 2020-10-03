@@ -14,13 +14,13 @@ namespace ConsoleDotNetTest
           // IdParser.Parse("");
             var testIMG = @"jopa.png";
             //var testIMG = @"D:\WorkSpace\kakaton\CP\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\jopa.png";
-            Recognize recognize = new Recognize();
-            var strs = recognize.Rec2(testIMG);
+            Recognizer recognize = new Recognizer();
+   //         var strs = recognize.RecognizeId(testIMG);
 
-			foreach (var item in strs)
-			{
-				Console.WriteLine(item);
-			}
+			//foreach (var item in strs)
+			//{
+			//	Console.WriteLine(item);
+			//}
         }
     }
 }

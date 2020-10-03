@@ -15,12 +15,20 @@ namespace Controller
 		public delegate void Notifier(string message);
 
 		private readonly Notifier notifier;
-
+		private readonly Recognizer recognizer;
 		public bool IsValid = false;
 
 		public MainController(Notifier notifier)
 		{
 			this.notifier = notifier;
+
+			recognizer = new Recognizer();
+			recognizer.RecognitionFinished += Recognizer_RecognitionFinished;
+		}
+
+		private void Recognizer_RecognitionFinished(string jsonPath)
+		{
+			throw new NotImplementedException();
 		}
 
 		public BitmapImage ChooseImage()
@@ -29,6 +37,8 @@ namespace Controller
 
 			if (path is null)
 				return null;
+
+			Task.Run(() => recognizer.RecognizeId(path));
 
 			return new BitmapImage(new Uri(path));
 		}
