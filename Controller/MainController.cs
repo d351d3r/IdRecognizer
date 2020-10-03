@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RecognizerDLL.Utils;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -13,13 +14,16 @@ namespace Controller
 	{
 		private const string InvalidFormatErrorMessage = "Возникла ошибка во время выбора файла";
 		private const string SaveErrorMessage = "Нечего сохранять!";
-		private const string RussionPostURL = @"https://www.pochta.ru";
+		private const string RussionPostURL = "https://www.pochta.ru";
+		private const string GoogleURL = "http://www.google.com";
 		private const string JsonExtension = ".json";
 
 		public delegate void Notifier(string message);
 
 		private readonly Notifier notifier;
 		private readonly Recognizer recognizer;
+
+		public event Action IdDropped;
 
 		public bool IsDataValid => isNameValid && isSecondNameValid && isMiddleNameValid
 											&& isSeriesNameValid && isExpirationValid
@@ -32,7 +36,6 @@ namespace Controller
 		private bool isNumberValid = false;
 		private bool isExpirationValid = false;
 		private bool isBirthValid = false;
-
 
 		private PersonId person;
 
@@ -164,6 +167,25 @@ namespace Controller
 			{
 				Task.Run(() => SaveJson(dlg.FileName));
 			}
+
+			DropFields();
+		}
+
+		private void DropFields()
+		{
+			isNameValid = false;
+			isSecondNameValid = false;
+			isMiddleNameValid = false;
+			isSeriesNameValid = false;
+			isCodeValid = false;
+			isNumberValid = false;
+			isExpirationValid = false;
+			isBirthValid = false;
+			NotifyPropertyChanged("IsDataValid");
+
+			Person = null;
+
+			IdDropped?.Invoke();
 		}
 
 		private void SaveJson(string fileName)
@@ -180,9 +202,10 @@ namespace Controller
 
 		public void Navigate()
 		{
-			//var b = new WebBrowser();
-			//b.Navigate(RussionPostURL);
-			////Task.Run(() => );
+			Process.Start(new ProcessStartInfo(RussionPostURL)
+			{
+				UseShellExecute = true,
+			});
 		}
 	}
 }

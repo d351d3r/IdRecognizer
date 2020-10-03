@@ -17,7 +17,14 @@ namespace IdRecognizer
 			InitializeComponent();
 
 			mainController = new MainController((message) => MessageBox.Show(message));
+
+			mainController.IdDropped += MainController_IdDropped;
 			DataContext = mainController;
+		}
+
+		private void MainController_IdDropped()
+		{
+			IdScanImage.Source = null;
 		}
 
 		private void OpenFileButton_Click(object sender, RoutedEventArgs e)

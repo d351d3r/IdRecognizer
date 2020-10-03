@@ -98,7 +98,8 @@
                        Margin="4,4,10,4"
                        x:Name="PostLogo"
                        MouseDown="PostLogo_MouseDown"
-                       Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"/>
+                       Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"
+                       ToolTip="На сайт Почты России!"/>
 
             </Grid>
 
