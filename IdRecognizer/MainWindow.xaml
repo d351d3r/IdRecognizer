@@ -212,6 +212,9 @@
                                           HorizontalAlignment="Stretch"
                                           Style="{StaticResource RoundedComboBox}">
                                     <ComboBoxItem IsSelected="True">01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
+                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
                                 </ComboBox>
 
                             </Grid>
