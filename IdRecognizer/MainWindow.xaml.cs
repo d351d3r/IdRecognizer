@@ -44,5 +44,10 @@ namespace IdRecognizer
 		{
 
 		}
+
+		private void MainFocusGrid_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+
+		}
 	}
 }

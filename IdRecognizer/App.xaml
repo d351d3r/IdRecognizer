@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources\Templates\ButtonsStyles.xaml"/>
                 <ResourceDictionary Source="Resources\Templates\ComboBoxTemplates.xaml"/>
                 <ResourceDictionary Source="Resources\Templates\Brushes.xaml"/>
+                <ResourceDictionary Source="Resources\Templates\TextBoxTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock" x:Key="UnderButtonText">
@@ -23,6 +24,8 @@
             <Style TargetType="TextBlock" x:Key="SideText">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Foreground" Value="{StaticResource SecondFontBrush}"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             
             <Style TargetType="Button" x:Key="MyRoundButton" BasedOn="{StaticResource ABitRoundButton}">

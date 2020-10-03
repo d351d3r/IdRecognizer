@@ -16,7 +16,10 @@
         </Style>
     </Window.Resources>
     
-    <Grid Background="{StaticResource MainBackgroundBrush}">
+    <Grid Background="{StaticResource MainBackgroundBrush}"
+          Focusable="True"
+          x:Name="MainFocusGrid"
+          MouseDown="MainFocusGrid_MouseDown">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
@@ -155,15 +158,31 @@
                                        Grid.Row="0"
                                        Grid.Column="0"/>
 
+                            <TextBox Text="123"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Row="0"
+                                     Grid.Column="1"/>
+
                             <TextBlock Text="Имя:"
                                        Style="{StaticResource SideText}"
                                        Grid.Row="1"
                                        Grid.Column="0"/>
 
+                            <TextBox Text="123"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Row="1"
+                                     Grid.Column="1"/>
+
+
                             <TextBlock Text="Отчество:"
                                        Style="{StaticResource SideText}"
                                        Grid.Row="2"
                                        Grid.Column="0"/>
+
+                            <TextBox Text="123"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Row="2"
+                                     Grid.Column="1"/>
 
                             <Grid Grid.Row="3"
                                   Grid.Column="0"
@@ -176,6 +195,11 @@
                                        Grid.Column="0">
                                 Место <LineBreak/>рождения:
                             </TextBlock>
+
+                            <TextBox Text="123"
+                                     Style="{StaticResource InputTextBox}"
+                                     Grid.Row="4"
+                                     Grid.Column="1"/>
 
                         </Grid>
                     </Border>
