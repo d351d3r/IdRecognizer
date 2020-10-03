@@ -15,12 +15,12 @@ namespace ConsoleDotNetTest
             var testIMG = @"jopa.png";
             //var testIMG = @"D:\WorkSpace\kakaton\CP\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\jopa.png";
             Recognizer recognize = new Recognizer();
-   //         var strs = recognize.RecognizeId(testIMG);
+            recognize.RecognizeId(testIMG);
 
-			//foreach (var item in strs)
-			//{
-			//	Console.WriteLine(item);
-			//}
+            //foreach (var item in strs)
+            //{
+            //	Console.WriteLine(item);
+            //}
         }
     }
 }

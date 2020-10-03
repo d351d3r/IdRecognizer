@@ -8,30 +8,21 @@ namespace RecognizerDLL.Utils
 {
 	public static class IdParser
 	{
-		private static string Sample = "Result: {\"duration\":117,\"frame_id\":0,\"zones\":[{\"lines\":[{\"confidence\":91.0,\"text\":\"PNRUSIWNKO<<FDOR<SRG**VI3<<<<<<<<<<<<<<<<\",\"warpedBox\":[-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0]},{\"confidence\":90.0,\"text\":\"02750277RUS000710M<<<<<<<0200*072\",\"warpedBox\":[-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0]}],\"warpedBox\":[283,2217,1765,2217,1765,2373,283,2373]}]}";
-
-		public static void Parse(string jsonStr)
+		public static PersonId Parse(string firstLine, string secondLine)
 		{
-			jsonStr = Sample;
+			var p = Split(firstLine, secondLine);
 
-			var p = Split(jsonStr);
-			var d = p.Birth;
+			return p;
 		}
 
-		private static PersonId Split(string jsonStr)
+		private static PersonId Split(string firstLine, string secondLine)
 		{
-			var ar = jsonStr.Split("\"text\":");
-			var firstParse = ar[1].Split("\"warpedBox\"")[0].Replace("\"", "");
-			var secondPhrase = ar[2].Split("\"warpedBox\"")[0].Replace("\"", "");
-
-			//var ans = Regex.Match()
-
-			var namesInput = firstParse.Split("<").Where(x => x != "");
+			var namesInput = firstLine.Split("<").Where(x => x != "");
 			var secondName = namesInput.ElementAt(0).Skip(5).ToArray();
 			var name = namesInput.ElementAt(1);
 			var middleName = namesInput.ElementAt(2);
 
-			var secondPhraseParts = secondPhrase.Split("<").Where(x => x != "");
+			var secondPhraseParts = secondLine.Split("<").Where(x => x != "");
 
 			var firstPart = secondPhraseParts.ElementAt(0);
 			var series = firstPart.Take(3).ToArray();

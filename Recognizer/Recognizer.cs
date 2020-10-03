@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.Linq;
+using RecognizerDLL.Utils;
 
 public class Recognizer
 {
@@ -28,7 +29,11 @@ public class Recognizer
 			using var page = engine.Process(img);
 
 			var text = page.GetText();
-			//return text.Split("\n").Where(x => x.Length > 25).TakeLast(4);
+			var res = text.Split("\n").Where(x => x.Length > 25).TakeLast(2);
+			var pData = IdParser.Parse(res.ElementAt(0), res.ElementAt(1));
+			//return ;
+
+			//RecognitionFinished?.Invoke(path);
 		}
 		catch (Exception e)
 		{
