@@ -28,7 +28,7 @@ public class Recognize
         static readonly IList<float> CONFIG_ROI = new[] { 0f, 0f, 0f, 0f };
         const double CONFIG_MIN_SCORE = 0.0;
 
-        public static void Rec(string path) 
+        public  void Rec(string path) 
         {
             //UltMrzSdkResult result = CheckResult("Init");
 
@@ -64,16 +64,6 @@ public class Recognize
                 }
             }
 
-            static UltMrzSdkResult CheckResult(UltMrzSdkResult result)
-            {
-                if (!result.isOK())
-                {
-                    
-
-                    throw new Exception("A");
-                }
-                return result;
-            }
 
            
             //static String BuildJSON(String assetsFolder = "", String tokenDataBase64 = "")
