@@ -7,8 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Icons\" />
-    <Folder Include="Resources\Templates\" />
+    <None Remove="Resources\Icons\id_icon.png" />
+    <None Remove="Resources\Icons\russian_post_logo.png" />
+    <None Remove="Resources\Icons\save_icon.png" />
+    <None Remove="Resources\Icons\scan_image_icon.png" />
+    <None Remove="Resources\Icons\upload_image_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\id_icon.png" />
+    <Resource Include="Resources\Icons\russian_post_logo.png" />
+    <Resource Include="Resources\Icons\save_icon.png" />
+    <Resource Include="Resources\Icons\scan_image_icon.png" />
+    <Resource Include="Resources\Icons\upload_image_icon.png" />
   </ItemGroup>
 
 </Project>

@@ -4,23 +4,91 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Id recognizer" Height="450" Width="800">
+        Title="Id recognizer"
+        Icon="pack://application:,,,/Resources/Icons/id_icon.png"
+        Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="MenuPanel" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="4,0,6,0"/>
+        </Style>
+    </Window.Resources>
     
-    <Grid>
+    <Grid Background="{StaticResource MainBackgroundBrush}">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
             <RowDefinition/>
-            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Column="0"
                 Grid.Row="0"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                BorderThickness="0,0,0,2"
+                Margin="6,0,6,0"
+                BorderBrush="{StaticResource DividingBrush}">
+
+            <Grid ShowGridLines="True">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="0">
+
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="OpenFileButton">
+                        <Image Source="pack://application:,,,/Resources/Icons/upload_image_icon.png"/>
+                    </Button>
+                    
+                    <TextBlock Text="Открыть файл"
+                               Style="{StaticResource UnderButtonText}"/>
+                    
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="1">
+
+                    <Button Style="{StaticResource MyRoundButton}">
+                        <Image Source="pack://application:,,,/Resources/Icons/scan_image_icon.png"/>
+                    </Button>
+
+                    <TextBlock Text="Сканировать"
+                               Style="{StaticResource UnderButtonText}"/>
+
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="2">
+
+                    <Button Style="{StaticResource MyRoundButton}">
+                        <Image Source="pack://application:,,,/Resources/Icons/save_icon.png"/>
+                    </Button>
+
+                    <TextBlock Text="Сохранить"
+                               Style="{StaticResource UnderButtonText}"/>
+
+                </StackPanel>
+                
+                <Image Grid.Column="3" 
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       HorizontalAlignment="Right"  VerticalAlignment="Center"
+                       Margin="4,4,10,4"
+                       Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"/>
+
+            </Grid>
             
         </Border>
 
@@ -28,6 +96,18 @@
                Grid.Row="1"
                Grid.Column="0"/>
 
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                 BorderThickness="2,0,0,0"
+                Margin="0,6,6,6"
+                BorderBrush="{StaticResource DividingBrush}">
+
+            <Grid>
+                
+            </Grid>
+            
+        </Border>
+        
     </Grid>
     
 </Window>

@@ -4,6 +4,30 @@
              xmlns:local="clr-namespace:IdRecognizer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\Templates\ButtonsStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="MainBackgroundBrush" Color="#4CB1F7"/>
+            <SolidColorBrush x:Key="SecondBackgroundBrush" Color="#044BD9"/>
+            <SolidColorBrush x:Key="DividingBrush" Color="#0339A6"/>
+
+            <Style TargetType="TextBlock" x:Key="UnderButtonText">
+                <Setter Property="Foreground" Value="#FF051459"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+            </Style>
+
+            <Style TargetType="Button" x:Key="MyRoundButton" BasedOn="{StaticResource ABitRoundButton}">
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Height" Value="80"/>
+                <Setter Property="Background" Value="{StaticResource SecondBackgroundBrush}"/>
+            </Style>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
