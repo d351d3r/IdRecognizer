@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RecognizerDLL.Utils
+﻿namespace RecognizerDLL.Utils
 {
 	public class PersonId
 	{
