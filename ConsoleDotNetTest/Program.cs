@@ -6,7 +6,7 @@ namespace ConsoleDotNetTest
         
         static void Main(string[] args)
         {
-            var testIMG = @"D:\WorkSpace\какатон\ЦП\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\4.tif";
+            var testIMG = @"D:\WorkSpace\kakaton\CP\ConsoleDotNetTest\bin\Debug\netcoreapp3.1\fedos.jpg";
             Recognize recognize = new Recognize();
             recognize.Rec(testIMG);
         }
