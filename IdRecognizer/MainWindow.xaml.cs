@@ -47,9 +47,9 @@ namespace IdRecognizer
 
 		private void TextBox_Error(object sender, ValidationErrorEventArgs e)
 		{
-			if(sender is TextBox currentTB)
+			if(sender is TextBox)
 			{
-				mainController.OutError(currentTB, e);
+				mainController.OutError(e);
 			}
 		}
 	}

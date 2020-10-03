@@ -40,6 +40,18 @@
                 <Setter Property="BorderBrush" Value="{StaticResource DividingBrush}"/>
             </Style>
 
+            <ControlTemplate x:Key="ValidationFailed">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderBrush="Red" BorderThickness="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            CornerRadius="10">
+                        <AdornedElementPlaceholder />
+                    </Border>
+                    <TextBlock Foreground="Red" FontSize="50" FontWeight="Bold">!</TextBlock>
+                </StackPanel>
+            </ControlTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

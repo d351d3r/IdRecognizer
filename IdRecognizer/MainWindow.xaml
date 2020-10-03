@@ -161,6 +161,7 @@
                             <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Row="0"
                                      Grid.Column="1"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}"
                                      Validation.Error="TextBox_Error">
                                 <TextBox.Text>
                                     <Binding Path="Person.SecondName" NotifyOnValidationError="True"
@@ -180,7 +181,8 @@
                             <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Row="1"
                                      Grid.Column="1"
-                                     Validation.Error="TextBox_Error">
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                                 <TextBox.Text>
                                     <Binding Path="Person.Name" NotifyOnValidationError="True"
                                              Mode="TwoWay">
@@ -200,12 +202,13 @@
                             <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Row="2"
                                      Grid.Column="1"
-                                     Validation.Error="TextBox_Error">
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                                 <TextBox.Text>
                                     <Binding Path="Person.MiddleName" NotifyOnValidationError="True"
                                              Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <DataErrorValidationRule/>
+                                            <DataErrorValidationRule  />
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -229,21 +232,31 @@
                                 <ComboBox Grid.Column="1"
                                           Width="50"
                                           Style="{StaticResource RoundedComboBox}">
-                                    <ComboBoxItem IsSelected="True">M</ComboBoxItem>
+                                    <ComboBoxItem>M</ComboBoxItem>
+                                    <ComboBoxItem>F</ComboBoxItem>
+                                    <ComboBox.SelectedItem>
+                                        <Binding Path="Person.Gender" Mode="TwoWay"/>
+                                    </ComboBox.SelectedItem>
                                 </ComboBox>
 
                                 <TextBlock Text="Дата рождения:"
                                            Style="{StaticResource SideText}"
                                            Grid.Column="2"/>
 
-                                <ComboBox Grid.Column="3"
-                                          HorizontalAlignment="Stretch"
-                                          Style="{StaticResource RoundedComboBox}">
-                                    <ComboBoxItem IsSelected="True">01.02.2012</ComboBoxItem>
-                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
-                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
-                                    <ComboBoxItem >01.02.2012</ComboBoxItem>
-                                </ComboBox>
+                                <TextBox Grid.Column="3"
+                                         HorizontalAlignment="Stretch"
+                                         Style="{StaticResource InputTextBox}"
+                                         Validation.Error="TextBox_Error"
+                                         Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                    <TextBox.Text>
+                                        <Binding Path="Person.Birth" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <DataErrorValidationRule />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
 
                             </Grid>
 
@@ -269,12 +282,13 @@
 
                             <TextBox Style="{StaticResource InputTextBox}"
                                      Grid.Column="1"
-                                     Validation.Error="TextBox_Error">
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                                 <TextBox.Text>
                                     <Binding Path="Person.Series" NotifyOnValidationError="True"
                                              Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <DataErrorValidationRule/>
+                                            <DataErrorValidationRule  />
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -286,12 +300,13 @@
 
                             <TextBox Style="{StaticResource InputTextBox}"
                                     Validation.Error="TextBox_Error"
-                                     Grid.Column="3">
+                                     Grid.Column="3"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                                 <TextBox.Text>
                                     <Binding Path="Person.Number" NotifyOnValidationError="True"
                                              Mode="TwoWay">
                                         <Binding.ValidationRules>
-                                            <DataErrorValidationRule/>
+                                            <DataErrorValidationRule />
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -320,7 +335,8 @@
                         <TextBox Grid.Row="0"
                                  Grid.Column="1"
                                  Style="{StaticResource InputTextBox}"
-                                 Validation.Error="TextBox_Error">
+                                 Validation.Error="TextBox_Error"
+                                 Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                             <TextBox.Text>
                                 <Binding Path="Person.Expiration" NotifyOnValidationError="True"
                                              Mode="TwoWay">
@@ -340,7 +356,8 @@
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
                                  Style="{StaticResource InputTextBox}"
-                                 Validation.Error="TextBox_Error">
+                                 Validation.Error="TextBox_Error"
+                                 Validation.ErrorTemplate="{StaticResource ValidationFailed}">
                             <TextBox.Text>
                                 <Binding Path="Person.Code" NotifyOnValidationError="True"
                                              Mode="TwoWay">

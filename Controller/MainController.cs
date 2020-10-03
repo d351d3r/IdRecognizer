@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace Controller
 {
-	public class MainController: ControllerBase
+	public class MainController : ControllerBase
 	{
 		private const string InvalidFormatErrorMessage = "Возникла ошибка во время выбора файла";
 		private const string SaveErrorMessage = "Нечего сохранять!";
@@ -29,9 +29,6 @@ namespace Controller
 		}
 
 		public bool IsValid = false;
-
-		public SolidColorBrush InvalidBrush = new SolidColorBrush(Colors.Red);
-		public SolidColorBrush ValidBrush = new SolidColorBrush(Colors.Transparent);
 
 		private PersonId person;
 
@@ -73,18 +70,10 @@ namespace Controller
 			return new BitmapImage(new Uri(path));
 		}
 
-		public void OutError(TextBox currentTB, ValidationErrorEventArgs e)
+		public void OutError(ValidationErrorEventArgs e)
 		{
-			if (e.Action == ValidationErrorEventAction.Added)
-			{
-				currentTB.BorderBrush = ValidBrush;
-			}
-			else
-			{
-				currentTB.BorderBrush = InvalidBrush;
-
+			if (e.Error.Exception is null == false)
 				Notify(e.Error.Exception.Message);
-			}
 		}
 
 		private string ChoosePath()
