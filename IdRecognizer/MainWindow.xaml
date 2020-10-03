@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Id recognizer"
         Icon="pack://application:,,,/Resources/Icons/id_icon.png"
-        Height="450" Width="800">
+        Height="450" Width="850">
 
     <Window.Resources>
         <Style x:Key="MenuPanel" TargetType="StackPanel">
@@ -28,14 +28,14 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--Managment panel-->
         <Border Grid.Column="0"
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
-                BorderThickness="0,0,0,2"
                 Margin="6,0,6,0"
-                BorderBrush="{StaticResource DividingBrush}">
+                Style="{StaticResource UnderlinedBorder}">
 
-            <Grid ShowGridLines="True">
+            <Grid>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -49,19 +49,22 @@
                             Grid.Column="0">
 
                     <Button Style="{StaticResource MyRoundButton}"
-                            x:Name="OpenFileButton">
+                            x:Name="OpenFileButton"
+                            Click="OpenFileButton_Click">
                         <Image Source="pack://application:,,,/Resources/Icons/upload_image_icon.png"/>
                     </Button>
-                    
-                    <TextBlock Text="Открыть файл"
-                               Style="{StaticResource UnderButtonText}"/>
-                    
+
+                    <TextBlock Style="{StaticResource UnderButtonText}"
+                              Text="Открыть"/>
+
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource MenuPanel}"
                             Grid.Column="1">
 
-                    <Button Style="{StaticResource MyRoundButton}">
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="ScanButton"
+                            Click="ScanButton_Click">
                         <Image Source="pack://application:,,,/Resources/Icons/scan_image_icon.png"/>
                     </Button>
 
@@ -73,7 +76,9 @@
                 <StackPanel Style="{StaticResource MenuPanel}"
                             Grid.Column="2">
 
-                    <Button Style="{StaticResource MyRoundButton}">
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="SaveButton"
+                            Click="SaveButton_Click">
                         <Image Source="pack://application:,,,/Resources/Icons/save_icon.png"/>
                     </Button>
 
@@ -86,6 +91,8 @@
                        RenderOptions.BitmapScalingMode="HighQuality"
                        HorizontalAlignment="Right"  VerticalAlignment="Center"
                        Margin="4,4,10,4"
+                       x:Name="PostLogo"
+                       MouseDown="PostLogo_MouseDown"
                        Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"/>
 
             </Grid>
@@ -96,13 +103,95 @@
                Grid.Row="1"
                Grid.Column="0"/>
 
+        <!--Panel with data to check-->
         <Border Grid.Row="1"
                 Grid.Column="1"
                  BorderThickness="2,0,0,0"
                 Margin="0,6,6,6"
                 BorderBrush="{StaticResource DividingBrush}">
 
-            <Grid>
+            <Grid Margin="6,0,0,0">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Style="{StaticResource UnderlinedBorder}">
+                    <TextBlock Text="Паспортные данные"
+                               Style="{StaticResource UnderButtonText}"/>
+                </Border>
+
+                <!--Parsed data grid-->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!--1st name, second, middle, male, birth date, birth place-->
+                    <Border Style="{StaticResource UnderlinedBorder}"
+                            Grid.Row="0">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Фамилия:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+
+                            <TextBlock Text="Имя:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+
+                            <TextBlock Text="Отчество:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="2"
+                                       Grid.Column="0"/>
+
+                            <Grid Grid.Row="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2">
+                                
+                            </Grid>
+
+                            <TextBlock Style="{StaticResource SideText}"
+                                       Grid.Row="4"
+                                       Grid.Column="0">
+                                Место <LineBreak/>рождения:
+                            </TextBlock>
+
+                        </Grid>
+                    </Border>
+
+                    <!--Series and number-->
+                    <Border Style="{StaticResource UnderlinedBorder}"
+                            Grid.Row="1">
+                        <Grid>
+                            <TextBlock Text="Серия:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+                        </Grid>
+                    </Border>
+                    
+                </Grid>
                 
             </Grid>
             

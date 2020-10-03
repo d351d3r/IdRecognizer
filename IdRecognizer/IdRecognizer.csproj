@@ -22,4 +22,8 @@
     <Resource Include="Resources\Icons\upload_image_icon.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+
 </Project>

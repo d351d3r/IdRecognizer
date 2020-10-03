@@ -24,5 +24,25 @@ namespace IdRecognizer
 		{
 			InitializeComponent();
 		}
+
+		private void OpenFileButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ScanButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void SaveButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void PostLogo_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+
+		}
 	}
 }

@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="ActiveButtonBrush" Color="#FFF5D5CA"/>
-    <SolidColorBrush x:Key="ActiveButtonBorderBrush" Color="#0339A6"/>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="RoundButton" TargetType="Button">
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -29,8 +30,8 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ActiveButtonBrush}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource ActiveButtonBorderBrush}"/>
+                            <Setter Property="Background" Value="{StaticResource ActiveBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource ActiveBorderBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
 
@@ -62,9 +63,9 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Background" Value="{StaticResource ActiveButtonBrush}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource ActiveButtonBorderBrush}"/>
+                            <Setter Property="BorderThickness" Value="4"/>
+                            <Setter Property="Background" Value="{StaticResource ActiveBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource ActiveBorderBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
 
