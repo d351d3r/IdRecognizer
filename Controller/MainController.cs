@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -20,7 +21,7 @@ namespace Controller
 
 		private const string RussionPostURL = "https://www.pochta.ru";
 		private const string JsonExtension = ".json";
-		private const bool DebugMode = true;
+		private const bool DebugMode = false;
 
 		public delegate void Notifier(string message);
 
@@ -43,8 +44,21 @@ namespace Controller
 		private bool isExpirationValid = false;
 		private bool isBirthValid = false;
 
+		public Visibility AnimationVisibility
+		{
+			get => animationVisibility;
+
+			private set
+			{
+				animationVisibility = value;
+
+				NotifyPropertyChanged("AnimationVisibility");
+			}
+		}
+
 		private PersonId person;
 		private string tempPath;
+		private Visibility animationVisibility = Visibility.Hidden;
 
 		public PersonId Person
 		{
@@ -69,6 +83,8 @@ namespace Controller
 
 		public void ChooseScan()
 		{
+			Anumate(Visibility.Visible);
+
 			DropFields();
 
 			var path = @"D:\repos\IdRecognizer\IdRecognizer\PythonScripts\untitled0.exe";
@@ -97,10 +113,15 @@ namespace Controller
 
 		private void Recognizer_RecognitionFinished(string jsonPath)
 		{
-			var jsonStr = File.ReadAllText(jsonPath);
+			if(jsonPath is null == false)
+			{
+				var jsonStr = File.ReadAllText(jsonPath);
 
-			Person = JsonConvert.DeserializeObject<PersonId>(jsonStr);
-			Person.ValidationChaged += Person_ValidationChaged;
+				Person = JsonConvert.DeserializeObject<PersonId>(jsonStr);
+				Person.ValidationChaged += Person_ValidationChaged;
+			}
+
+			Anumate(Visibility.Hidden);
 		}
 
 		private void RemoveTempData()
@@ -121,7 +142,7 @@ namespace Controller
 			{
 				Console.WriteLine(e.Message);
 			}
-			
+
 			tempPath = null;
 		}
 
@@ -175,7 +196,14 @@ namespace Controller
 			if (path is null)
 				return null;
 
+			Anumate(Visibility.Visible);
+
 			return StartRecognision(path);
+		}
+
+		private void Anumate(Visibility visibility)
+		{
+			dispatcher?.Invoke(() => AnimationVisibility = visibility);
 		}
 
 		private BitmapImage StartRecognision(string path)

@@ -31,11 +31,13 @@ public class Recognizer
 		catch (ArgumentOutOfRangeException aOrE)
 		{
 			Console.WriteLine(aOrE.ToString());
+			RecognitionFinished?.Invoke(null);
 			throw new ArgumentException(ParseErrorMessage, aOrE);
 		}
 		catch (Exception e)
 		{
 			Console.WriteLine(e.ToString());
+			RecognitionFinished?.Invoke(null);
 			throw e;
 		}
 	}

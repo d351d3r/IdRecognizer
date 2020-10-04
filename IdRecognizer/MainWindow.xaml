@@ -111,6 +111,33 @@
                Grid.Row="1"
                Grid.Column="0"/>
 
+        <Image Source="pack://application:,,,/Resources/Icons/loading_spinner.png"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Width="150"
+               Height="150"
+               Grid.Row="1"
+               Grid.Column="0"
+               Visibility="{Binding AnimationVisibility, Mode=OneWay}">
+            <Image.RenderTransform>
+                <RotateTransform x:Name="rotate"
+                         CenterX="75"
+                         CenterY="75"/>
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
         <!--Panel with data to check-->
         <Border Grid.Row="1"
                 Grid.Column="1"
@@ -242,7 +269,7 @@
                                             <sys:String>F</sys:String>
                                         </x:Array>
                                     </ComboBox.ItemsSource>
-                                    
+
                                     <ComboBox.SelectedItem>
                                         <Binding Path="Person.Gender" Mode="TwoWay"/>
                                     </ComboBox.SelectedItem>
