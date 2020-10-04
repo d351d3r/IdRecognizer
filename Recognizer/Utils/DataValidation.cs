@@ -1,9 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace RecognizerDLL.Utils
 {
 	internal static class DataValidation
 	{
+		private const int MaxAge = 120;
+
 		public static bool IsNameValid(string input)
 		{
 			var regex = new Regex("[0-9]");
@@ -21,6 +24,12 @@ namespace RecognizerDLL.Utils
 		{
 			var regex = new Regex("^[0-9]{6}$");
 			return regex.IsMatch(input);
+		}
+
+		public static bool IsDateValid(string input)
+		{
+			var isVal = DateTime.TryParse(input, out var res);
+			return isVal && res < DateTime.Today && res.Year >= DateTime.Today.Year - MaxAge;
 		}
 	}
 }

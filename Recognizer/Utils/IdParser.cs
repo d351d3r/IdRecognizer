@@ -2,7 +2,7 @@
 
 namespace RecognizerDLL.Utils
 {
-	public static class IdParser
+	internal static class IdParser
 	{
 		public static PersonId Parse(string firstLine, string secondLine)
 		{

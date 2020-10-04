@@ -160,9 +160,11 @@ namespace RecognizerDLL.Utils
 
 	public partial class PersonId : IDataErrorInfo
 	{
-		private const string InvalidNameMessage = "Неверное имя! Имя не может содержать цифр!";
-		private const string InvalidSeriesMessage = "Неверная серия паспорта! Это должно быть 4-х значеное число!";
-		private const string InvalidNumberMessage = "Неверный номер паспорта! Это должно быть 6-ти значное число!";
+		private readonly string InvalidNameMessage = $"Неверное имя! {StandartErrorMessage}\nИмя не может содержать цифр!";
+		private readonly string InvalidSeriesMessage = $"Неверная серия паспорта! {StandartErrorMessage}\nЭто должно быть 4-х значеное число!";
+		private readonly string InvalidNumberMessage = $"Неверный номер паспорта! {StandartErrorMessage}\nЭто должно быть 6-ти значное число!";
+		private const string StandartErrorMessage = "Пожалуйста, проверьке правильность!";
+		private readonly string InvalidDateMessage = $"Неверная дата! {StandartErrorMessage}";
 
 		public const string NameProp = "Name";
 		public const string SecondNameProp = "SecondName";
@@ -246,21 +248,21 @@ namespace RecognizerDLL.Utils
 
 					case ExpirationProp:
 						{
-							//var isValid = DataValidation.IsNumberValid(Number);
-							//if (isValid == false)
-							//	error = InvalidNumberMessage;
+							var isValid = DataValidation.IsDateValid(Expiration);
+							if (isValid == false)
+								error = InvalidDateMessage;
 
-							ValidationChaged?.Invoke(ExpirationProp, true);
+							ValidationChaged?.Invoke(ExpirationProp, isValid);
 						}
 						break;
 
 					case BirthProp:
 						{
-							//var isValid = DataValidation.IsNumberValid(Number);
-							//if (isValid == false)
-							//	error = InvalidNumberMessage;
+							var isValid = DataValidation.IsDateValid(Birth);
+							if (isValid == false)
+								error = InvalidDateMessage;
 
-							ValidationChaged?.Invoke(BirthProp, true);
+							ValidationChaged?.Invoke(BirthProp, isValid);
 						}
 						break;
 
