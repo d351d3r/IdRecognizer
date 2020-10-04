@@ -135,7 +135,7 @@ namespace Controller
 			}
 			catch (IOException ioe)
 			{
-				Notify(AccessErrorMessage);
+				//Notify(AccessErrorMessage);
 				Console.WriteLine(ioe.Message);
 			}
 			catch (Exception e)
