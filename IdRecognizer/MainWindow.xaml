@@ -1,12 +1,389 @@
 ﻿<Window x:Class="IdRecognizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IdRecognizer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Id recognizer"
+        Icon="pack://application:,,,/Resources/Icons/id_icon.png"
+        MinHeight="600" MinWidth="900">
+
+    <Window.Resources>
+        <Style x:Key="MenuPanel" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="4,0,6,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource MainBackgroundBrush}"
+          Focusable="True"
+          x:Name="MainFocusGrid"
+          MouseDown="MainFocusGrid_MouseDown">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Managment panel-->
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Margin="6,0,6,0"
+                Style="{StaticResource UnderlinedBorder}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="0">
+
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="OpenFileButton"
+                            Click="OpenFileButton_Click">
+                        <Image Source="pack://application:,,,/Resources/Icons/upload_image_icon.png"/>
+                    </Button>
+
+                    <TextBlock Style="{StaticResource UnderButtonText}"
+                              Text="Открыть"/>
+
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="1">
+
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="ScanButton"
+                            Click="ScanButton_Click">
+                        <Image Source="pack://application:,,,/Resources/Icons/scan_image_icon.png"/>
+                    </Button>
+
+                    <TextBlock Text="Сканировать"
+                               Style="{StaticResource UnderButtonText}"/>
+
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource MenuPanel}"
+                            Grid.Column="2">
+
+                    <Button Style="{StaticResource MyRoundButton}"
+                            x:Name="SaveButton"
+                            Click="SaveButton_Click"
+                            IsEnabled="{Binding IsDataValid, Mode=OneWay}">
+                        <Image Source="pack://application:,,,/Resources/Icons/save_icon.png"/>
+                    </Button>
+
+                    <TextBlock Text="Сохранить"
+                               Style="{StaticResource UnderButtonText}"/>
+
+                </StackPanel>
+
+                <Image Grid.Column="3" 
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       HorizontalAlignment="Right"  VerticalAlignment="Center"
+                       Margin="4,4,10,4"
+                       x:Name="PostLogo"
+                       MouseDown="PostLogo_MouseDown"
+                       Source="pack://application:,,,/Resources/Icons/russian_post_logo.png"
+                       ToolTip="На сайт Почты России!"/>
+
+            </Grid>
+
+        </Border>
+
+        <Image x:Name="IdScanImage"
+               Margin="10"
+               Grid.Row="1"
+               Grid.Column="0"/>
+
+        <!--Panel with data to check-->
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                BorderThickness="2,0,0,0"
+                Margin="0,6,6,6"
+                BorderBrush="{StaticResource DividingBrush}">
+
+            <Grid Margin="6,0,0,0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Style="{StaticResource UnderlinedBorder}">
+                    <TextBlock Text="Паспортные данные"
+                               Style="{StaticResource UnderButtonText}"/>
+                </Border>
+
+                <!--Parsed data grid-->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!--1st name, second, middle, male, birth date, birth place-->
+                    <Border Style="{StaticResource UnderlinedBorder}"
+                            Grid.Row="0">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Фамилия:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+
+                            <TextBox Style="{StaticResource InputTextBox}"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}"
+                                     Validation.Error="TextBox_Error">
+                                <TextBox.Text>
+                                    <Binding Path="Person.SecondName" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Text="Имя:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+
+                            <TextBox Style="{StaticResource InputTextBox}"
+                                     Grid.Row="1"
+                                     Grid.Column="1"
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                <TextBox.Text>
+                                    <Binding Path="Person.Name" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+
+                            <TextBlock Text="Отчество:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="2"
+                                       Grid.Column="0"/>
+
+                            <TextBox Style="{StaticResource InputTextBox}"
+                                     Grid.Row="2"
+                                     Grid.Column="1"
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                <TextBox.Text>
+                                    <Binding Path="Person.MiddleName" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule  />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <Grid Grid.Row="3"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Пол:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Column="0"/>
+
+                                <ComboBox Grid.Column="1"
+                                          Width="50"
+                                          Style="{StaticResource RoundedComboBox}">
+                                    <ComboBox.ItemsSource>
+                                        <x:Array Type="{x:Type sys:String}">
+                                            <sys:String>M</sys:String>
+                                            <sys:String>F</sys:String>
+                                        </x:Array>
+                                    </ComboBox.ItemsSource>
+                                    
+                                    <ComboBox.SelectedItem>
+                                        <Binding Path="Person.Gender" Mode="TwoWay"/>
+                                    </ComboBox.SelectedItem>
+                                </ComboBox>
+
+                                <TextBlock Text="Дата рождения:"
+                                           Style="{StaticResource SideText}"
+                                           Grid.Column="2"/>
+
+                                <TextBox Grid.Column="3"
+                                         HorizontalAlignment="Stretch"
+                                         Style="{StaticResource InputTextBox}"
+                                         Validation.Error="TextBox_Error"
+                                         Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                    <TextBox.Text>
+                                        <Binding Path="Person.Birth" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <DataErrorValidationRule />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+
+                    <!--Series and number-->
+                    <Border Style="{StaticResource UnderlinedBorder}"
+                            Grid.Row="1">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Серия:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"/>
+
+                            <TextBox Style="{StaticResource InputTextBox}"
+                                     Grid.Column="1"
+                                     Validation.Error="TextBox_Error"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                <TextBox.Text>
+                                    <Binding Path="Person.Series" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule  />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBlock Text="Номер:"
+                                       Style="{StaticResource SideText}"
+                                       Grid.Column="2"/>
+
+                            <TextBox Style="{StaticResource InputTextBox}"
+                                    Validation.Error="TextBox_Error"
+                                     Grid.Column="3"
+                                     Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                                <TextBox.Text>
+                                    <Binding Path="Person.Number" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Style="{StaticResource SideText}"
+                                   Grid.Column="0"
+                                   Grid.Row="0">
+                            Дата выдачи:
+                        </TextBlock>
+
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Style="{StaticResource InputTextBox}"
+                                 Validation.Error="TextBox_Error"
+                                 Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                            <TextBox.Text>
+                                <Binding Path="Person.Expiration" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <DataErrorValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBlock Style="{StaticResource SideText}"
+                                   Grid.Column="0"
+                                   Grid.Row="1">
+                            Номер<LineBreak/>подразделения:
+                        </TextBlock>
+
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="1"
+                                 Style="{StaticResource InputTextBox}"
+                                 Validation.Error="TextBox_Error"
+                                 Validation.ErrorTemplate="{StaticResource ValidationFailed}">
+                            <TextBox.Text>
+                                <Binding Path="Person.Code" NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <DataErrorValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
 
     </Grid>
+
 </Window>
