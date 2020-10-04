@@ -107,6 +107,7 @@
 
         <Image x:Name="IdScanImage"
                Margin="10"
+               RenderOptions.BitmapScalingMode="HighQuality"
                Grid.Row="1"
                Grid.Column="0"/>
 

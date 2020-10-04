@@ -7,23 +7,29 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Controller
 {
 	public class MainController : ControllerBase
 	{
+		private const string ScanFileName = "scan123456789987654321.png";
 		private const string InvalidFormatErrorMessage = "Возникла ошибка во время выбора файла";
 		private const string SaveErrorMessage = "Нечего сохранять!";
+		private const string AccessErrorMessage = "Невозможно получить доступ к файлу!";
+
 		private const string RussionPostURL = "https://www.pochta.ru";
-		private const string GoogleURL = "http://www.google.com";
 		private const string JsonExtension = ".json";
+		private const bool DebugMode = true;
 
 		public delegate void Notifier(string message);
 
 		private readonly Notifier notifier;
+		private readonly Dispatcher dispatcher;
 		private readonly Recognizer recognizer;
 
 		public event Action IdDropped;
+		public event Action<BitmapImage> ImageSelected;
 
 		public bool IsDataValid => isNameValid && isSecondNameValid && isMiddleNameValid
 											&& isSeriesNameValid && isExpirationValid
@@ -38,6 +44,7 @@ namespace Controller
 		private bool isBirthValid = false;
 
 		private PersonId person;
+		private string tempPath;
 
 		public PersonId Person
 		{
@@ -50,17 +57,42 @@ namespace Controller
 			}
 		}
 
-		public MainController(Notifier notifier)
+		public MainController(Notifier notifier, Dispatcher dispatcher)
 		{
 			this.notifier = notifier;
-
+			this.dispatcher = dispatcher;
 			recognizer = new Recognizer();
 			recognizer.RecognitionFinished += Recognizer_RecognitionFinished;
+
+			Task.Run(() => RemoveTempData());
 		}
 
 		public void ChooseScan()
 		{
-			throw new NotImplementedException();
+			DropFields();
+
+			var path = @"D:\repos\IdRecognizer\IdRecognizer\PythonScripts\untitled0.exe";
+			var scanProcess = Process.Start(new ProcessStartInfo(path)
+			{
+				UseShellExecute = false,
+				CreateNoWindow = !DebugMode
+			});
+
+			Task.Run(() => WaitCompletionTask(scanProcess));
+		}
+
+		private void WaitCompletionTask(Process scanProcess)
+		{
+			scanProcess.WaitForExit();
+
+			tempPath = GetPath();
+
+			ImageSelected?.Invoke(StartRecognision(tempPath));
+		}
+
+		private string GetPath()
+		{
+			return Path.GetTempPath() + ScanFileName;
 		}
 
 		private void Recognizer_RecognitionFinished(string jsonPath)
@@ -68,7 +100,29 @@ namespace Controller
 			var jsonStr = File.ReadAllText(jsonPath);
 
 			Person = JsonConvert.DeserializeObject<PersonId>(jsonStr);
-			Person.ValidationChaged += Person_ValidationChaged; ;
+			Person.ValidationChaged += Person_ValidationChaged;
+		}
+
+		private void RemoveTempData()
+		{
+			if (tempPath is null)
+				return;
+
+			try
+			{
+				File.Delete(tempPath);
+			}
+			catch (IOException ioe)
+			{
+				Notify(AccessErrorMessage);
+				Console.WriteLine(ioe.Message);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+			
+			tempPath = null;
 		}
 
 		private void Person_ValidationChaged(string propName, bool isValidFlag)
@@ -121,9 +175,26 @@ namespace Controller
 			if (path is null)
 				return null;
 
-			Task.Run(() => recognizer.RecognizeId(path));
+			return StartRecognision(path);
+		}
 
-			return new BitmapImage(new Uri(path));
+		private BitmapImage StartRecognision(string path)
+		{
+			Task.Run(() => TryRun(path));
+
+			return dispatcher?.Invoke(() => new BitmapImage(new Uri(path)).Clone());
+		}
+
+		private void TryRun(string path)
+		{
+			try
+			{
+				recognizer.RecognizeId(path);
+			}
+			catch (Exception e)
+			{
+				Notify(e.Message);
+			}
 		}
 
 		public void OutError(ValidationErrorEventArgs e)
@@ -185,6 +256,8 @@ namespace Controller
 
 			Person = null;
 
+			RemoveTempData();
+
 			IdDropped?.Invoke();
 		}
 
@@ -197,7 +270,7 @@ namespace Controller
 
 		private void Notify(string message)
 		{
-			notifier?.Invoke(message);
+			dispatcher?.Invoke(() => notifier?.Invoke(message));
 		}
 
 		public void Navigate()

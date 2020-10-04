@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecognizerDLL", "Recognizer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDotNetTest", "ConsoleDotNetTest\ConsoleDotNetTest.csproj", "{82496897-2C53-4E7D-8862-F45B1F285913}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{64D7BCCC-7A96-4AD4-988B-F4A96E3CE98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controller", "Controller\Controller.csproj", "{64D7BCCC-7A96-4AD4-988B-F4A96E3CE98E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

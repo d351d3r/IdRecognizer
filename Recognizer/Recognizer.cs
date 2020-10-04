@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using Tesseract;
-using System.Drawing;
-using System.Drawing.Imaging;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using System.Text.Json;
 using System.Linq;
 using RecognizerDLL.Utils;
 using System.IO;
 
 public class Recognizer
 {
+	private const string ParseErrorMessage = "Невозможно распознать текст!";
 	private const string TemporatyFileExtension = ".tmp";
 
 	public delegate void RecognitionFinishedDelegate(string jsonPath);
@@ -33,6 +27,11 @@ public class Recognizer
 			var jsonPath = SaveToTemp(jsonStr);
 
 			RecognitionFinished?.Invoke(jsonPath);
+		}
+		catch (ArgumentOutOfRangeException aOrE)
+		{
+			Console.WriteLine(aOrE.ToString());
+			throw new ArgumentException(ParseErrorMessage, aOrE);
 		}
 		catch (Exception e)
 		{

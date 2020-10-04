@@ -16,10 +16,17 @@ namespace IdRecognizer
 		{
 			InitializeComponent();
 
-			mainController = new MainController((message) => MessageBox.Show(message));
+			mainController = new MainController((message) => MessageBox.Show(message, "Warning!", MessageBoxButton.OK, MessageBoxImage.Error), 
+												Dispatcher);
 
+			mainController.ImageSelected += MainController_ImageSelected;
 			mainController.IdDropped += MainController_IdDropped;
 			DataContext = mainController;
+		}
+
+		private void MainController_ImageSelected(System.Windows.Media.Imaging.BitmapImage obj)
+		{
+			Dispatcher.Invoke(() => IdScanImage.Source = obj);
 		}
 
 		private void MainController_IdDropped()
@@ -29,7 +36,7 @@ namespace IdRecognizer
 
 		private void OpenFileButton_Click(object sender, RoutedEventArgs e)
 		{
-			IdScanImage.Source =  mainController.ChooseImage();
+			IdScanImage.Source = mainController.ChooseImage();
 		}
 
 		private void ScanButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +61,7 @@ namespace IdRecognizer
 
 		private void TextBox_Error(object sender, ValidationErrorEventArgs e)
 		{
-			if(sender is TextBox)
+			if (sender is TextBox)
 			{
 				mainController.OutError(e);
 			}
